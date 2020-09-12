@@ -32,6 +32,8 @@ public sealed class ScaleTweenProperty : AbstractVector3TweenProperty
 	public override void prepareForUse()
 	{
 		_target = _ownerTween.target as Transform;
+		if ( _target == null || target.Equals(null) )
+		    return;
 		
 		_endValue = _originalEndValue;
 		
@@ -52,6 +54,9 @@ public sealed class ScaleTweenProperty : AbstractVector3TweenProperty
 	
 	public override void tick( float totalElapsedTime )
 	{
+		if ( _target == null || target.Equals(null) )
+		    return;
+	    
 		var easedTime = _easeFunction( totalElapsedTime, 0, 1, _ownerTween.duration );
 		_target.localScale = GoTweenUtils.unclampedVector3Lerp( _startValue, _diffValue, easedTime );
 	}
